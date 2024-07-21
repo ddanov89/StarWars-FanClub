@@ -2,16 +2,16 @@
 
 ## 1. Initialize Project
 - [x] Initialize git repo
-- [] Add back-end server
-- [] Add base vite react project as client
-- [] CleanUp client
-- [] Add project resources
-- [] Separate html into components
+- [x] Add back-end server
+- [x] Add base vite react project as client
+- [x] CleanUp client
+- [x] Add project resources
+- [x] Separate html into components
 ## 2. React Router
-- [] Install react-router-dom
-- [] Setup react-router-dom
-- [] Add routes in App.jsx
-- [] Add links in the navigation
+- [x] Install react-router-dom
+- [x] Setup react-router-dom
+- [x] Add routes in App.jsx
+- [x] Add links in the navigation
 ## 3. Create Service Layer
 - [] Service Layer architecture 
 - [] Abstract Requester
