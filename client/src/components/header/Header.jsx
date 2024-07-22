@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 export default function Header() {
  return (
     <>
-    <header class="header">
+    <header className="header">
         <nav>
-            <img src="/static/images/swlogo.png" class="logo"/>
+            <img src="/static/images/swlogo.png" className="logo"/>
             <ul>
                 <li><Link to="/">Home Base</Link></li>
                 <li><Link to="/catalog">Star Wars Universe Catalog</Link></li>
