@@ -1,26 +1,5 @@
-# starWars-FanClub--2024
+This project consists of two parts - a REST API & React application for the UI.
 
-## 1. Initialize Project
-- [x] Initialize git repo
-- [x] Add back-end server
-- [x] Add base vite react project as client
-- [x] CleanUp client
-- [x] Add project resources
-- [x] Separate html into components
-## 2. React Router
-- [x] Install react-router-dom
-- [x] Setup react-router-dom
-- [x] Add routes in App.jsx
-- [x] Add links in the navigation
-## 3. Create Service Layer
-- [] Service Layer architecture 
-- [] Abstract Requester
-- [] Add Games api
-- [ ] Pre-seed practice server
-## 4. Game List Implementations
-- [] Game List
-- [] Details 
-  - [] Details link
-  - [] Details route
-  - [] Api function - getOne
-- [] Home - Latest Games
+In order to run the REST API, you need to go to the server, after installing the necessary dependencies and you can just run ### npm run start in the terminal. That will start the server on http://localhost:3000.
+
+To run the front-end part as well, just go to the client folder and after installing the necessary dependencies, you can just run ### npm run dev in the terminal. Open http://localhost:5173 to view it in your browser.
