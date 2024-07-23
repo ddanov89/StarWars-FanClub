@@ -36,9 +36,6 @@ const movieSchema = new Schema({
         ref: 'User'
     }
 });
-movieSchema.method('getAllMyList', function () {
-    return this.wishList.map(x => x._id);
-});
 
 const Movie = model('Movie', movieSchema);
 
