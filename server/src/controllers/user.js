@@ -33,9 +33,6 @@ userRouter.post('/register', isGuest(),
     body('email').trim().isLength({ min: 10 }).isEmail().withMessage('Email must be at least 10 characters long!'),
     body('username').trim().isLength({ min: 4 }).withMessage('Username must be at least 4 characters long!'),
     body('password').trim().isLength({ min: 4 }).withMessage('Password must be at least 4 characters long!'),
-    body('repass').trim().custom((value, { req }) => {
-        return value == req.body.password;
-    }).withMessage('Passwords don\'t match!'),
     async (req, res) => {
 
         const { email, username, password } = req.body;
@@ -63,7 +60,6 @@ userRouter.post('/register', isGuest(),
         }
     });
 userRouter.get('/logout', (req, res) => {
-    res.clearCookie('token');
     res.status(204).end();
 });
 

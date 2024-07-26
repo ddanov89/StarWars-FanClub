@@ -7,7 +7,6 @@ async function requester(method, url, data) {
             ...options.headers,
             'X-Authorization': accessToken
         }
-        
     }
 
     if (method != "GET") {
@@ -22,6 +21,9 @@ async function requester(method, url, data) {
     }
 
     const response = await fetch(url, options);
+    if (response.status == 204) {
+        return;
+    }
 
     const result = await response.json();
 
@@ -35,10 +37,10 @@ async function requester(method, url, data) {
 
 
 
- export const get = (url, data) => requester('GET', url, data);
- export const post = (url, data) => requester('POST', url, data);
- export const put = (url, data) => requester('PUT', url, data);
- export const del = (url, data) => requester('DELETE', url, data);
+export const get = (url, data) => requester('GET', url, data);
+export const post = (url, data) => requester('POST', url, data);
+export const put = (url, data) => requester('PUT', url, data);
+export const del = (url, data) => requester('DELETE', url, data);
 
 
 export default {
