@@ -6,8 +6,8 @@ export default function Search() {
         <h1>Search the Universe</h1>
 
         <form className="search-form" name="search-form" method="get">
-            <input type="text" className="search-movie" name="name" placeholder="Search here..." value=""/>
-            <select autocomplete="off" id="category" name="category" value="" selected="">
+            <input type="text" className="search-movie" name="name" placeholder="Search here..." defaultValue={""} />
+            <select autoComplete="off" id="category" name="category" value="" selected="">
                 <option value="" hidden="hidden" selected>""</option>
                 <option value="---">---</option>
                 <option value="Movie">Movie</option>

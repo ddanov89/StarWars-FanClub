@@ -1,16 +1,8 @@
-import { useEffect, useState } from "react";
-import * as moviesAPI from "../../api/movies-api";
+import { useGetAllMovies } from "../../hooks/useMovies";
 import MovieItem from "./movieItem/MovieItem";
 
 export default function Catalog() {
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const result = await moviesAPI.getAll();
-      setMovies(result);
-    })();
-  }, []);
+  const [movies] = useGetAllMovies();
 
   return (
     <>

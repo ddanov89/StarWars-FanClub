@@ -1,15 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import moviesAPI from "../../api/movies-api";
 
 export default function MovieCreate() {
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const createSubmitHandler = async (e) => {
     e.preventDefault();
     const movieData = Object.fromEntries(new FormData(e.currentTarget));
     try {
       await moviesAPI.create(movieData);
-      navigate("/");
+      navigate(`/catalog/${id}`);
     } catch (error) {
       alert(error.message);
     }
@@ -24,7 +24,7 @@ export default function MovieCreate() {
             <form name="create-form" onSubmit={createSubmitHandler}>
               <label>Category:</label>
               <select
-                autocomplete="off"
+                autoComplete="off"
                 id="category"
                 name="category"
                 selected=""

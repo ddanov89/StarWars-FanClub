@@ -13,15 +13,15 @@ catalogRouter.get('/catalog/:id', async (req, res) => {
     const movie = await getMovieById(movieId);
 
     if (!movie) {
-        res.status(404).end();
+        res.status(404).json({ code: 404, message: 'Item not found!' });
+        return;
     }
-    
+
     movie.likes = movie.likedBy.length;
 
     movie.hasUser = res.locals.hasUser;
     movie.isAuthor = req.user._id == movie.author.toString();
     movie.hasBeenLiked = Boolean(movie.likedBy.find(b => b.toString() == req.user._id));
-
     res.json(movie);
 });
 

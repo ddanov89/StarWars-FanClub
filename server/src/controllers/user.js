@@ -3,26 +3,33 @@ const { body, validationResult } = require('express-validator');
 const { createToken } = require('../services/jwt');
 const { parseError } = require('../util');
 const { login, register } = require('../services/user');
+const { isGuest } = require('../middlewares/guards');
 
 const userRouter = Router();
 
 
-userRouter.post('/login', async (req, res) => {
-    
+userRouter.post('/login', isGuest(),
+    body('email').trim().isLength({ min: 10 }).isEmail().withMessage('Email must be at least 10 characters long!'),
+    body('password').trim().isLength({ min: 4 }).withMessage('Password must be at least 4 characters long!'),
+    async (req, res) => {
+
         const { email, password } = req.body;
 
         try {
             const userInformation = await login(email, password);
             const token = createToken(userInformation);
             res.cookie('token', token);
-            res.status(200).end();
+            res.json({
+                _id: userInformation._id,
+                email: userInformation.email,
+                token
+            });
         } catch (error) {
-            res.json({ data: { email }, errors: parseError(error).errors });
-
+            res.status(403).json({ code: 403, message: 'Incorrect email or password!' });
         }
     });
 
-userRouter.post('/register',
+userRouter.post('/register', isGuest(),
     body('email').trim().isLength({ min: 10 }).isEmail().withMessage('Email must be at least 10 characters long!'),
     body('username').trim().isLength({ min: 4 }).withMessage('Username must be at least 4 characters long!'),
     body('password').trim().isLength({ min: 4 }).withMessage('Password must be at least 4 characters long!'),
@@ -43,15 +50,22 @@ userRouter.post('/register',
             const userInformation = await register(email, username, password);
             const token = createToken(userInformation);
             res.cookie('token', token);
-            res.status(200).end();
+            res.json({
+                _id: userInformation._id,
+                email: userInformation.email,
+                username: userInformation.username,
+                token
+            });
         } catch (error) {
-            res.json( { data: { email, username }, errors: parseError(error).errors });
+            const parsed = parseError(error).errors;
+
+            res.status(403).json({ code: 403, message: parsed.message });
         }
     });
-    userRouter.get('/logout', async (req, res) => {
-        res.clearCookie('token');
-        res.status(200).end();
-    });
+userRouter.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.status(204).end();
+});
 
 
 module.exports = { userRouter };

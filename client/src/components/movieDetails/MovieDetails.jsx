@@ -1,17 +1,10 @@
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import * as moviesAPI from "../../api/movies-api";
+import { useGetOneMovie } from "../../hooks/useMovies";
 
 export default function MovieDetails() {
-  const [movie, setMovie] = useState({});
   const { id } = useParams();
+  const [movie] = useGetOneMovie(id);
 
-  useEffect(() => {
-    (async () => {
-      const result = await moviesAPI.getOne(id);
-      setMovie(result);
-    })();
-  }, []);
   return (
     <>
       <main id="details">
