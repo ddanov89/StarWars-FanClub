@@ -3,27 +3,14 @@ import * as request from './requester';
 const BASE_URL = 'http://localhost:3000/';
 
 const getAll = async () => {
-    const result = await request.get(`${BASE_URL}` + `catalog`);
+    const result = await request.get(`${BASE_URL}catalog`);
     const movies = Object.values(result);
     return movies;
 };
 
-const getOne = async (movieId) => {
-    return await request.get(`${BASE_URL}catalog/${movieId}`);
-};
+const getOne = (movieId) => request.get(`${BASE_URL}catalog/${movieId}`);
 
-const create = async (movieData) => {
-    const response = await fetch(`${BASE_URL}create`, {
-        method: 'POST',
-        headers: {
-            'Content-type': "application/json"
-        },
-        body: JSON.stringify(movieData)
-    });
-
-    const result = await response.json();
-    return result;
-};
+const create = (movieData) => request.post(`${BASE_URL}create`, movieData);
 
 const moviesAPI = {
     getAll,

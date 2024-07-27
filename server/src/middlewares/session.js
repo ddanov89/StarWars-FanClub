@@ -9,8 +9,8 @@ function session() {
             try {
                 const sessionData = verifyToken(token);
                 req.user = {
-                    email: sessionData.email,
                     username: sessionData.username,
+                    email: sessionData.email,
                     _id: sessionData._id
                 };
                 res.locals.hasUser = true;

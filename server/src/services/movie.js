@@ -11,7 +11,6 @@ async function getMovieById(id) {
 }
 
 async function createMovie(data, authorId) {
-
     const record = new Movie({
         name: data.name,
         image: data.image,
@@ -23,7 +22,6 @@ async function createMovie(data, authorId) {
     });
 
     await record.save();
-
     return record;
 }
 

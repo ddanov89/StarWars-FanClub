@@ -9,19 +9,14 @@ catalogRouter.get('/catalog', async (req, res) => {
 });
 
 catalogRouter.get('/catalog/:id', async (req, res) => {
-    const movieId = req.params.id;
-    const movie = await getMovieById(movieId);
+    
+    const movie = await getMovieById(req.params.id);
 
     if (!movie) {
         res.status(404).json({ code: 404, message: 'Item not found!' });
         return;
     }
 
-    movie.likes = movie.likedBy.length;
-
-    movie.hasUser = res.locals.hasUser;
-    movie.isAuthor = req.user._id == movie.author.toString();
-    movie.hasBeenLiked = Boolean(movie.likedBy.find(b => b.toString() == req.user._id));
     res.json(movie);
 });
 

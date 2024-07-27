@@ -14,7 +14,6 @@ function createToken(userData) {
         {
             expiresIn: '1d'
         });
-
     return token;
 }
 
@@ -23,4 +22,13 @@ function verifyToken(token) {
     return data;
 }
 
-module.exports = { createToken, verifyToken };
+
+function decodeToken(req) {
+
+    let token = req.headers['x-authorization'];
+    const userData = jwt.decode(token);
+
+    return userData;
+}
+
+module.exports = { createToken, verifyToken, decodeToken };
