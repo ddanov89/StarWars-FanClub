@@ -12,6 +12,7 @@ import MovieEdit from "./components/movieEdit/MovieEdit";
 import MovieDetails from "./components/movieDetails/MovieDetails";
 import Profile from "./components/profile/Profile";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import Logout from "./components/logout/Logout";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthContextProvider>
