@@ -3,7 +3,7 @@ const { body, validationResult } = require('express-validator');
 const { createMovie, updateMovie, deleteMovieById, likeMovie, getAllMyAdditions } = require('../services/movie');
 const { parseError } = require('../util');
 const { isUser } = require('../middlewares/guards');
-const {decodeToken} =require('../services/jwt');
+const { decodeToken } = require('../services/jwt');
 
 const movieRouter = Router();
 
@@ -32,7 +32,7 @@ movieRouter.post('/create', isUser(),
         }
     });
 
-movieRouter.post('/edit/:id', isUser(),
+movieRouter.put('/edit/:id', isUser(),
     body('name').trim().isLength({ min: 4 }).withMessage('Name should be at least 4 characters long!'),
     body('image').trim().isURL({ require_tld: false, require_protocol: true }).withMessage('Image should be start with http:// or https://!'),
     body('rating').trim().isLength({ min: 1, max: 5 }).withMessage('Rating should be a non-negative number between 1 and 5!'),
@@ -40,6 +40,8 @@ movieRouter.post('/edit/:id', isUser(),
     body('review').trim().isLength({ min: 10 }).withMessage('Review should be at least 10 characters long!'),
     body('category').trim(),
     async (req, res) => {
+        const userData = decodeToken(req);
+        const userId = userData._id.toString();
         try {
             const validation = validationResult(req);
 
@@ -47,11 +49,10 @@ movieRouter.post('/edit/:id', isUser(),
                 throw validation.errors;
             }
 
-            const result = await updateMovie(req.params.id, req.body, req.user._id);
+            const result = await updateMovie(req.params.id, req.body, userId);
             res.json(result);
 
         } catch (error) {
-
             const parsed = parseError(error).errors;
             res.status(400).json({ code: 400, message: parsed.message });
         }
@@ -59,8 +60,10 @@ movieRouter.post('/edit/:id', isUser(),
 
 movieRouter.delete('/delete/:id', isUser(), async (req, res) => {
     const movieId = req.params.id;
+    const userData = decodeToken(req);
+    const userId = userData._id.toString();
     try {
-        await deleteMovieById(movieId, req.user._id);
+        await deleteMovieById(movieId, userId);
         res.status(204).end();
     } catch (error) {
         if (error.message == 'Access denied!') {
@@ -73,11 +76,9 @@ movieRouter.delete('/delete/:id', isUser(), async (req, res) => {
     }
 });
 
-movieRouter.get('/like/:id', async (req, res) => {
-
+movieRouter.post('/like/:id', async (req, res) => {
     const movieId = req.params.id;
-    const userId = req.user._id;
-
+    const userId = req.body.userId
     try {
 
         const result = await likeMovie(movieId, userId);
@@ -88,10 +89,10 @@ movieRouter.get('/like/:id', async (req, res) => {
 });
 
 movieRouter.get('/profile', isUser(), async (req, res) => {
-
-    const userId = req.user._id;
+    const userData = decodeToken(req);
+    const userId = userData._id.toString();
     const movies = await getAllMyAdditions(userId);
-    const email = req.user.email;
+    const email = userData.email.toString();
     res.json({ movies, email });
 });
 

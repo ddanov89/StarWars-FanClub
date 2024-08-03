@@ -30,3 +30,21 @@ export function useGetOneMovie(movieId) {
 export async function useCreateMovie(movieData) {
     return moviesAPI.create(movieData)
 }
+
+export async function useSearch(searchQuery) {
+    return await moviesAPI.search(searchQuery)
+}
+
+export async function useGetAllMyMovies(userId) {
+    const result = await moviesAPI.getByUserId(userId);
+    console.log(result);
+    return result;
+}
+
+export const useDelete = (movieId) => {
+
+    const deleteHandler = async () => {
+        await moviesAPI.deleteItem(movieId);
+    };
+    return deleteHandler;
+};

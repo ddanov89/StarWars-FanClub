@@ -13,7 +13,7 @@ export default function Header() {
               <Link to="/">Home Base</Link>
             </li>
             <li>
-              <Link to="/catalog">Star Wars Universe Catalog</Link>
+              <Link to="/catalog">Star Map</Link>
             </li>
             <li>
               <Link to="/search">Search the Universe</Link>

@@ -21,7 +21,7 @@ catalogRouter.get('/catalog/:id', async (req, res) => {
 });
 
 catalogRouter.get('/search', async (req, res) => {
-
+console.log("We are in the search method");
     const { name, category } = req.query;
 
     const movies = await searchMovies(name, category);

@@ -1,10 +1,19 @@
 import { Link, useParams } from "react-router-dom";
 import { useGetOneMovie } from "../../hooks/useMovies";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useGetIsLiked } from "../../hooks/useLike";
 
 export default function MovieDetails() {
   const { id } = useParams();
-  const [movie] = useGetOneMovie(id);
 
+  const [movie] = useGetOneMovie(id);
+  const { _id } = useAuthContext();
+  const [isLiked] = useGetIsLiked(id, _id);
+
+  const userId = _id;
+  const authorId = movie.author;
+  const isOwner = _id == authorId;  
+ 
   return (
     <>
       <main id="details">
@@ -29,24 +38,27 @@ export default function MovieDetails() {
               </p>
             </div>
 
-            {/* if user */}
-
             <div className="product-btn">
-              {/* if author */}
-              <div className="author">
-                <Link to={`/edit/${movie._id}`} className="btn-edit">
-                  Edit
+              {userId && isOwner ? (
+                <div className="author">
+                  <Link to={`/edit/${id}`} className="btn-edit">
+                    Edit
+                  </Link>
+                  <Link to={`/delete/${id}`} className="btn-delete">
+                    Delete
+                  </Link>
+                </div>
+              ) : userId && isLiked ? (
+                <p className="like-message">
+                  You have already liked this movie!
+                </p>
+              ) : userId ? (
+                <Link
+                  to={`/like/${id}`}
+                  className="btn-like">
+                  Like
                 </Link>
-                <Link to={`/delete/${movie._id}`} className="btn-delete">
-                  Delete
-                </Link>
-              </div>
-
-              {/* if hasBeenLiked */}
-              <p className="like-message">You have already liked this movie!</p>
-              <Link to={`/like/${movie._id}`} className="btn-like">
-                Like
-              </Link>
+              ) : null}
             </div>
           </div>
         </section>

@@ -85,10 +85,11 @@ async function likeMovie(movieId, userId) {
         throw new Error('Record not found' + movieId);
     }
     if (record.author.toString() == userId) {
-        throw new Error('Cannot buy your own product!');
+        throw new Error('Cannot like your own movie/game!');
     }
-    if (record.likedBy.find(like => like.toString() == userId)) {
-        throw new Error('You can only buy this product once!');
+    const likedBy = record.likedBy;
+    if (likedBy.find(like => like.toString() == userId)) {
+        throw new Error('You can only like this movie/game once!');
     }
 
     record.likedBy.push(userId);

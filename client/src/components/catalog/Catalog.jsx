@@ -8,7 +8,7 @@ export default function Catalog() {
     <>
       <main id="catalog">
         <section className="movie-market">
-          <h1>Universe Catalog</h1>
+          <h1>Sectors Catalog</h1>
 
           <div className="movie-list">
             {movies.length > 0 ? (

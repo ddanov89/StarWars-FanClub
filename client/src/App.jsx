@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { AuthContextProvider } from "./contexts/AuthContext";
 
 import Home from "./components/home/Home";
 import Catalog from "./components/catalog/Catalog";
@@ -11,8 +12,9 @@ import MovieCreate from "./components/movieCreate/MovieCreate";
 import MovieEdit from "./components/movieEdit/MovieEdit";
 import MovieDetails from "./components/movieDetails/MovieDetails";
 import Profile from "./components/profile/Profile";
-import { AuthContextProvider } from "./contexts/AuthContext";
 import Logout from "./components/logout/Logout";
+import Like from "./components/like/Like";
+import Delete from "./components/delete/Delete";
 
 function App() {
   return (
@@ -24,9 +26,11 @@ function App() {
         <Route path="/catalog/:id" element={<MovieDetails />} />
         <Route path="/create" element={<MovieCreate />} />
         <Route path="/edit/:id" element={<MovieEdit />} />
+        <Route path="delete/:id" element={<Delete />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/search" element={<Search />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/like/:id" element={<Like />}/>
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<NotFound />} />
