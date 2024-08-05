@@ -16,6 +16,7 @@ import Logout from "./components/logout/Logout";
 import Like from "./components/like/Like";
 import Delete from "./components/delete/Delete";
 import PrivateGuard from "./components/common/PrivateGuard";
+import { GuestGuard } from "./components/common/GuestGuard";
 
 function App() {
   return (
@@ -26,15 +27,17 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/catalog/:id" element={<MovieDetails />} />
         <Route element={<PrivateGuard />}>
-            <Route path="/create" element={<MovieCreate />} />
-            <Route path="/edit/:id" element={<MovieEdit />} />
-            <Route path="delete/:id" element={<Delete />} />
-            <Route path="/profile" element={<Profile />} />
+          <Route path="/create" element={<MovieCreate />} />
+          <Route path="/edit/:id" element={<MovieEdit />} />
+          <Route path="delete/:id" element={<Delete />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="/search" element={<Search />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/like/:id" element={<Like />} />
-        <Route path="/login" element={<Login />} />
+        <Route element={<GuestGuard />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
         <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
