@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const initialValues = { email: "", password: "" };
 
 export default function Login() {
+  console.log('asda');
   
   const login = useLogin();
 
@@ -24,6 +25,10 @@ export default function Login() {
     loginHandler
   );
 
+  const emailValidator =(e) => {
+
+  };
+
   return (
     <>
       <main id="login">
@@ -37,6 +42,7 @@ export default function Login() {
               placeholder="Email.."
               value={values.email}
               onChange={changeHandler}
+              onBlur={emailValidator}
             />
             <label>Password</label>
             <input

@@ -18,13 +18,10 @@ const initialValues = {
     const searchHandler = async (values) => {
       try {
             const searchQuery = `name=${values.name}&category=${values.category}`
-            console.log("The search query is: " + searchQuery);
             const result =await  moviesAPI.search(searchQuery);
             const movieData = await result.movies;
-         console.log("The result name is: " + result.movies[0].name);
             setMovies(movieData);
       } catch (error) {
-        //TODO: Set error state and display error
         console.log(error.message);
       }
     };
@@ -71,18 +68,15 @@ const initialValues = {
             </button>
           </form>
 
-          {/* <div className="search-result">  */}
              <div className="search-list">
-            {/* <div className="movie-list"> */}
             {movies.length > 0 ? (
               movies.map((movie) => <MovieItem key={movie._id} {...movie} />)
             ) : (
               <div className="no-movie">
-                <p>There are no movie/games added yet!</p>
+                <p>There are no movie/games yet!</p>
               </div>
             )}
           </div>
-          {/* </div> */}
         </section>
       </main>
     </>
