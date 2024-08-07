@@ -1,4 +1,5 @@
 import { Navigate, useParams } from "react-router-dom";
+
 import { useDelete } from "../../hooks/useMovies";
 
 export default function Delete() {

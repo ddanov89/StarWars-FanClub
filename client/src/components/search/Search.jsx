@@ -1,10 +1,8 @@
-import useForm from "../../hooks/useForm";
 import { useState } from "react";
+
+import useForm from "../../hooks/useForm";
 import moviesAPI from "../../api/movies-api";
 import MovieItem from "../catalog/movieItem/MovieItem";
-
-
-
 
 const initialValues = {
   name: "",

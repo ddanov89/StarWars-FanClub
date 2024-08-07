@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import moviesAPI from "../api/movies-api";
 import { useParams } from "react-router-dom";
+
+import moviesAPI from "../api/movies-api";
 import { useAuthContext } from "../contexts/AuthContext";
 
 export function useGetIsLiked(movieId, userId) {

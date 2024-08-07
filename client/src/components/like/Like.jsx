@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+
 import { usePostLike } from "../../hooks/useLike";
 
 export default function Like() {
