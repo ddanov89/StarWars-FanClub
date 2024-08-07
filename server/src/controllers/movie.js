@@ -17,7 +17,7 @@ movieRouter.post('/create', isUser(),
     body('category').trim(),
     async (req, res) => {
         const userData = decodeToken(req);
-        const userId = userData._id.toString();
+        const userId = userData?._id.toString();
 
         try {
             const validation = validationResult(req);
