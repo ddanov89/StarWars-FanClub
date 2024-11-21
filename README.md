@@ -1,6 +1,6 @@
 Star-Wars-Fan-Club
 
-Softuni ReactJS Final Project
+Softuni React Final Project
 
 Overview
 
